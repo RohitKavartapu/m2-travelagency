@@ -1,51 +1,323 @@
-<!--
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        ASSIGNMENT RULES
-        - This challenge should be done in pairs, go in Eduflow to find who you are paired with
-        - Implement one exercise each, switching side from driver and navigator frequently
-        - We suggest you to use Zoom or Google Hangouts to speak and look at each other throughout the whole activity
+		<!-- Bootstrap CSS -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+			crossorigin="anonymous"
+		/>
 
-        - The exercise must be pushed to the repository and linked on EduFlow by the end of the day
-        - You can google / use StackOverflow BUT we suggest you to use just the material provided
-        - To test the page, open it with your browser and use the inspector.
-        - Use Bootstrap4.6 classes to arrange the page layout and components.
-        - Use containers, rows and cols in order to have a working responsive layout.
+		<title>Gulliver Travels</title>
+		<style>
+			section {
+				margin: 20px;
+			}
+			img {
+				width: 300px;
+				height: 150px;
+			}
+			.nav-background {
+				color: rgb(255, 116, 16);
+				background-color: rgba(128, 128, 128, 0.712);
+			}
 
+			.nav-text {
+				color: rgb(255, 116, 16);
+			}
+			#img {
+				width: 100px;
+				height: 100px;
+				margin-left: 20px;
+				border-radius: 20px;
+				margin-right: 20px;
+			}
+		</style>
+	</head>
 
-        EXERCISE: 
-        You are creating a website for a Travel Agency.
-        In thins page you will add destinations of places you're dreaming to go to in the near future!
+	<body style="background-color: rgba(152, 108, 202, 0.226)">
+		<nav class="navbar navbar-expand-lg navbar-light nav-background">
+			<img
+				id="img"
+				src="data:image/png;base64,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"
+				alt="logo"
+			/>
+			<a class="navbar-brand nav-text ml-2" href="deal">Deal of the Week</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarNav"
+				aria-controls="navbarNav"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse px-2" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link nav-text" href="summer">Welcome Summer </a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link nav-text" href="#">Deal of the day</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div class="conatiner" style="background-color: rgba(206, 169, 49, 0.514)">
+			<div class="jumbotron">
+				<h1 class="display-4">Gulliver Travels</h1>
+				<h3>“Live with no excuses and travel with no regrets”</h3>
+				<hr class="my-4" />
+				<p>
+					Travel agents don’t just sell travel; they sell stress-free vacations
+					created with expert knowledge and keen attention to detail. An agent’s
+					job isn’t to just get you on a plane; it’s to plan the perfect and
+					personalized trip for their clients.
+				</p>
+				<a class="btn btn-primary btn-lg" href="#" role="button"
+					>More about us</a
+				>
+			</div>
+		</div>
+		<section id="Deal">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-6 col-md-4 col-xl-3">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://d2bgjx2gb489de.cloudfront.net/gbb-blogs/wp-content/uploads/2017/05/16213722/Berlin_city_viewXL.jpg"
+								class="card-img-top"
+								alt="Berlin"
+								height="250px"
+								weight="150px"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">
+									Some quick example text to build on the card title and make up
+									the bulk of the card's content.
+								</p>
+								<a href="#" class="btn btn-primary">Go somewhere</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-xl-3">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://cdn.britannica.com/46/154246-050-7C72E12F/view-Rome.jpg"
+								class="card-img-top"
+								alt="Rome"
+								height="250px"
+								weight="150px"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">
+									Some quick example text to build on the card title and make up
+									the bulk of the card's content.
+								</p>
+								<a href="#" class="btn btn-primary">Go somewhere</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-xl-3">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://media.cntraveler.com/photos/608af3e75e7a9305842b0fe1/5:4/w_3800,h_3040,c_limit/Latest%20on%20Lockdowns%20Europe__France_GettyImages-1145422105.jpg"
+								class="card-img-top"
+								alt="France"
+								height="250px"
+								weight="150px"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">
+									Some quick example text to build on the card title and make up
+									the bulk of the card's content.
+								</p>
+								<a href="#" class="btn btn-primary">Go somewhere</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-xl-3">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://idsb.tmgrup.com.tr/ly/uploads/images/2021/01/15/85830.jpg"
+								class="card-img-top"
+								alt="Greece"
+								height="250px"
+								weight="150px"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">
+									Some quick example text to build on the card title and make up
+									the bulk of the card's content.
+								</p>
+								<a href="#" class="btn btn-primary">Go somewhere</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="summer">
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-sm-6 col-md-4 col-xl-2">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/tower-bridge/thames_copyright_visitlondon_antoinebuchet640x360.jpg?mw=640&hash=27AEBE2D1B7279A196CC1B4548638A9679BE107A"
+								class="card-img-top"
+								alt="rome"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">london</h5>
+								<p class="card-text">
+									london is one of the world’s top tourist destinations, and is
+									one of the most admired cities on the planet. Throughout the
+									centuries, Rome has impressed all sorts of visitors, poets,
+									painters, celebrities and politicians.
+								</p>
+								<a
+									href="https://www.spotahome.com/blog/x-quotes-about-rome-that-will-make-you/"
+									class="btn btn-primary"
+									>want to know more</a
+								>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-xl-2">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/2560px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg"
+								class="card-img-top"
+								alt="rome"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">Rome</h5>
+								<p class="card-text">
+									Rome is one of the world’s top tourist destinations, and is
+									one of the most admired cities on the planet. Throughout the
+									centuries, Rome has impressed all sorts of visitors, poets,
+									painters, celebrities and politicians.
+								</p>
+								<a
+									href="https://www.spotahome.com/blog/x-quotes-about-rome-that-will-make-you/"
+									class="btn btn-primary"
+									>want to know more</a
+								>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-xl-2">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Colosseum_in_Rome%2C_Italy_-_April_2007.jpg/2560px-Colosseum_in_Rome%2C_Italy_-_April_2007.jpg"
+								class="card-img-top"
+								alt="rome"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">Berlin</h5>
+								<p class="card-text">
+									berlin is one of the world’s top tourist destinations, and is
+									one of the most admired cities on the planet. Throughout the
+									centuries, Rome has impressed all sorts of visitors, poets,
+									painters, celebrities and politicians.
+								</p>
+								<a
+									href="https://www.spotahome.com/blog/x-quotes-about-rome-that-will-make-you/"
+									class="btn btn-primary"
+									>want to know more</a
+								>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-xl-2">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://www.bavaria.by/wp-content/uploads//2016/11/l533qdyv-1.jpg"
+								class="card-img-top"
+								alt="rome"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">Munich</h5>
+								<p class="card-text">
+									Munich is one of the world’s top tourist destinations, and is
+									one of the most admired cities on the planet. Throughout the
+									centuries, Rome has impressed all sorts of visitors, poets,
+									painters, celebrities and politicians.
+								</p>
+								<a
+									href="https://www.spotahome.com/blog/x-quotes-about-rome-that-will-make-you/"
+									class="btn btn-primary"
+									>want to know more</a
+								>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 col-md-4 col-xl-2">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://cdn.britannica.com/37/189837-050-F0AF383E/New-Delhi-India-War-Memorial-arch-Sir.jpg"
+								class="card-img-top"
+								alt="rome"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">delhi</h5>
+								<p class="card-text">
+									delhi is one of the world’s top tourist destinations, and is
+									one of the most admired cities on the planet. Throughout the
+									centuries, Rome has impressed all sorts of visitors, poets,
+									painters, celebrities and politicians.
+								</p>
+								<a
+									href="https://www.spotahome.com/blog/x-quotes-about-rome-that-will-make-you/"
+									class="btn btn-primary"
+									>want to know more</a
+								>
+							</div>
+						</div>
+					</div>
 
+					<div class="col-12 col-sm-6 col-md-4 col-xl-2">
+						<div class="card" style="height: 100%">
+							<img
+								src="https://cdn.londonandpartners.com/-/media/images/london/visit/things-to-do/sightseeing/london-attractions/tower-bridge/thames_copyright_visitlondon_antoinebuchet640x360.jpg?mw=640&hash=27AEBE2D1B7279A196CC1B4548638A9679BE107A"
+								class="card-img-top"
+								alt="rome"
+							/>
+							<div class="card-body">
+								<h5 class="card-title">paris</h5>
+								<p class="card-text">
+									london is one of the world’s top tourist destinations, and is
+									one of the most admired cities on the planet. Throughout the
+									centuries, Rome has impressed all sorts of visitors, poets,
+									painters, celebrities and politicians.
+								</p>
+								<a
+									href="https://www.spotahome.com/blog/x-quotes-about-rome-that-will-make-you/"
+									class="btn btn-primary"
+									>want to know more</a
+								>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
 
-        Ex 1) Implement a navigation bar. Connected to all the sections of the page to the menu items. 
-        Ex 2) Add a logo into the navigation bar (can be any image)
-        Ex 3) Add a Jumbotron section with the name and the claim of the tour operator agency
-        Ex 4) Implement the "Deal of the Week" section. In this section you'll display 4 destinations.
-         In this section you should have:
-            - 4 destinations per row when the screen is very large
-            - 3 destinations per row when you are on a tablet (or a smaller window)
-            - 2 destinations per row when you are on a small screen
-
-        Ex 5) Implement the "Welcome Summer" section. In this section you'll propose 6 destinations to your user
-            In this section you should have:
-                - 6 destinations per row when the screen is very large
-                - 3 destinations per row when you are on a tablet (or a smaller window)
-                - 2 destinations per row when you are on a small screen
-        
-        Ex 6) Implement a "Deal of the day" section. In this section you'll have:
-            - 66% of the page with a picture of the destination
-            - 33% with Name, dates, price and a short description
-
-        Ex 7) Make the "Deal of the day" section disappear on mobile screens
-        Ex 8) Add to the Welcome Summer destinations section a large shadow
-        Ex 9) Create a section "Last Minute", in which you'll display the pictures of the destinations as Cards
-        Ex 10) Create a "Testimonial" section, in which the user can find several feedbacks from fake customers
-        Ex 11) Create a footer with the company informations and a "Contact Us" button
-
-        Ex 11) Create a button next to each section to collapse and reopen the given section
-        Ex 12) Create a method that counts the number of "travels" on the page
-        Ex 13) Create a modal view with a message and a email field
-        Ex 14) When the user clicks on "contact us" the modal is displayed
-        Ex 15) Create a function that adds a "HOT" badge to all the "Welcome Summer" offers
-        Ex 16) Create a function to delete all "cards" from the page
-      -->
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>
